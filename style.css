@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap');
+
+:root {
+    --primary-color: #2196f3; /* أزرق أساسي */
+    --secondary-color: #e3f2fd; /* أزرق فاتح جدًا للخلفيات الثانوية */
+    --background-color: #f0f8ff; /* خلفية زرقاء فاتحة جدًا (Alice Blue) */
+    --border-color: #e0e0e0; /* رمادي فاتح للحدود */
+    --text-color: #333;
+    --input-bg: #e3f2fd; /* خلفية فاتحة لحقول الإدخال */
+    --button-primary: #4caf50; /* أخضر للأزرار الرئيسية */
+    --button-primary-hover: #388e3c;
+    --button-secondary: #e0e0e0; /* رمادي للأزرار الثانوية */
+    --button-secondary-hover: #bdbdbd;
+    --error-color: #f44336;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    padding: 20px;
+    direction: rtl;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+    width: calc(100% - 16px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: var(--input-bg);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+    outline: none;
+}
+
+button {
+    padding: 12px 24px;
+    margin-right: 10px; /* إضافة هامش على اليمين لفصل الأزرار */
+    margin-bottom: 5px; /* إضافة هامش سفلي بسيط */
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-bottom: 3px solid #1976d2;
+}
+
+button:hover {
+    background-color: #1976d2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+button.primary {
+    background-color: var(--button-primary);
+    border-bottom-color: #388e3c;
+}
+
+button.primary:hover {
+    background-color: #388e3c;
+}
+
+button.secondary {
+    background-color: var(--button-secondary);
+    color: var(--text-color);
+    border-bottom-color: #bdbdbd;
+}
+
+button.secondary:hover {
+    background-color: #bdbdbd;
+}
+
+#login-container {
+    width: 320px;
+    margin: 40px auto;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#login-error {
+    color: var(--error-color);
+    margin-top: 10px;
+    display: none;
+    font-weight: bold;
+}
+
+#dashboard-container {
+    display: none;
+    padding: 20px;
+    background-color: var(--background-color);
+}
+
+.inner-section {
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #e0f2f7;
+    border-radius: 6px;
+    background-color: #f1f8e9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    text-align: right;
+}
+
+th {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.search-container {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-container input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.button-container {
+    display: flex; /* استخدام Flexbox لتوزيع الأزرار إذا كانت في صف واحد */
+    gap: 10px; /* بديل لإضافة هوامش إذا كانت الأزرار داخل هذه الحاوية */
+    flex-wrap: wrap; /* السماح للأزرار بالانتقال إلى سطر جديد إذا لم يكن هناك مساحة كافية */
+}
