@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة المخزون</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-container">
+        <h2>تسجيل الدخول</h2>
+        <input type="text" id="username" placeholder="اسم المستخدم">
+        <input type="password" id="password" placeholder="كلمة المرور">
+        <button onclick="login()">دخول</button>
+        <p id="login-error" style="display:none;">اسم المستخدم أو كلمة المرور غير صحيحة.</p>
+    </div>
+
+    <div id="dashboard-container">
+        <h1>نظام إدارة المخزون</h1>
+        <button onclick="showSection('inventory')">إدارة المخزون</button>
+        <button onclick="showSection('sales')">إضافة عملية بيع</button>
+        <button onclick="showSection('invoice')">إصدار فاتورة</button>
+        <button onclick="showSection('returns_sales')">مرتجع مبيعات</button>
+        <button onclick="showSection('returns_invoices')">مرتجع فاتورة</button>
+        <button onclick="showSection('records')">السجلات</button>
+
+        <div id="inventory" class="section" style="display:none;">
+            <h2>إدارة المخزون</h2>
+
+            <button id="show-add-product-form">إضافة منتج جديد</button>
+            <div id="add-product-form" style="display:none;">
+                <h3>إضافة منتج جديد</h3>
+                <input type="text" id="new-product-name" placeholder="اسم المنتج">
+                <input type="number" id="new-product-quantity" placeholder="الكمية">
+                <input type="number" id="new-product-price" placeholder="السعر">
+                <button onclick="addProduct()">إضافة</button>
+                <button id="hide-add-product-form">إخفاء</button>
+            </div>
+            <br>
+
+            <button id="show-update-quantity-form">تعديل الكمية</button>
+            <div id="update-quantity-form" style="display:none;">
+                <h3>تعديل الكمية</h3>
+                <input type="text" id="update-quantity-name" placeholder="اسم المنتج">
+                <input type="number" id="update-quantity-value" placeholder="الكمية الجديدة">
+                <button onclick="updateQuantity()">تحديث الكمية</button>
+                <button id="hide-update-quantity-form">إخفاء</button>
+            </div>
+            <br>
+
+            <button id="show-update-price-form">تعديل السعر</button>
+            <div id="update-price-form" style="display:none;">
+                <h3>تعديل السعر</h3>
+                <input type="text" id="update-price-name" placeholder="اسم المنتج">
+                <input type="number" id="update-price-value" placeholder="السعر الجديد">
+                <button onclick="updatePrice()">تحديث السعر</button>
+                <button id="hide-update-price-form">إخفاء</button>
+            </div>
+            <br>
+
+            <h3>قائمة المنتجات</h3>
+            <div class="search-container">
+                <input type="text" id="search-product" placeholder="بحث باسم المنتج">
+                <button onclick="searchProducts()">بحث</button>
+            </div>
+            <table id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>اسم المنتج</th>
+                        <th>الكمية</th>
+                        <th>السعر</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-body">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="sales" class="section" style="display:none;">
+            <h2>إضافة عملية بيع</h2>
+            <input type="text" id="customer-name" placeholder="اسم العميل">
+            <h3>المنتجات المباعة</h3>
+            <table id="current-sale-table">
+                <thead>
+                    <tr>
+                        <th>اسم المنتج</th>
+                        <th>الكمية</th>
+                        <th>السعر</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="sales-body">
+                </tbody>
+            </table>
+            <div>
+                <h3>إضافة منتج للبيع</h3>
+                <input type="text" id="sales-product-name" placeholder="اسم المنتج">
+                <input type="number" id="sales-product-quantity" placeholder="الكمية">
+                <input type="number" id="sales-product-price" placeholder="السعر (اختياري)">
+                <button onclick="addSalesItem()">إضافة المنتج</button>
+            </div>
+            <button onclick="registerSale()">تسجيل البيع</button>
+        </div>
+
+        <div id="invoice" class="section" style="display:none;">
+        <h2>إصدار فاتورة</h2>
+        <p>رقم الفاتورة: <span id="invoice-number-display"></span></p>
+        <p>تاريخ الإصدار: <span id="invoice-date-display"></span></p>
+        <input type="text" id="invoice-customer-name" placeholder="اسم العميل">
+        <h3>المنتجات في الفاتورة</h3>
+        <table id="current-invoice-table">
+            <thead>
+                <tr>
+                    <th>اسم المنتج</th>
+                    <th>الكمية</th>
+                    <th>السعر</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="invoice-body">
+            </tbody>
+        </table>
+        <div>
+            <h3>إضافة منتج للفاتورة</h3>
+            <input type="text" id="invoice-product-name" placeholder="اسم المنتج">
+            <input type="number" id="invoice-product-quantity" placeholder="الكمية">
+            <input type="number" id="invoice-product-price" placeholder="السعر (اختياري)">
+            <button onclick="addInvoiceItem()">إضافة المنتج</button>
+        </div>
+
+        <div id="current-invoice-details">
+            </div>
+
+        <button onclick="saveInvoice()">حفظ الفاتورة</button>
+        <button onclick="archiveInvoice()">أرشفة الفاتورة</button>
+    </div>
+
+        <div id="returns_sales" class="section" style="display:none;">
+            <h2>مرتجع مبيعات</h2>
+            <input type="text" id="returns-sales-customer-name" placeholder="اسم العميل">
+            <h3>المنتجات المرتجعة</h3>
+            <table id="current-returns-sales-table">
+                <thead>
+                    <tr>
+                        <th>اسم المنتج</th>
+                        <th>الكمية</th>
+                        <th>السعر</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="returns-sales-body">
+                </tbody>
+            </table>
+            <div>
+                <h3>إضافة منتج للمرتجع</h3>
+                <input type="text" id="returns-sales-product-name" placeholder="اسم المنتج">
+                <input type="number" id="returns-sales-product-quantity" placeholder="الكمية">
+                <input type="number" id="returns-sales-product-price" placeholder="السعر (اختياري)">
+                <button onclick="addReturnSalesItem()">إضافة المنتج</button>
+            </div>
+            <button onclick="saveReturnSales()">تسجيل المرتجع</button>
+        </div>
+
+        <div id="returns_invoices" class="section" style="display:none;">
+            <h2>مرتجع فاتورة</h2>
+            <input type="text" id="returns-invoices-customer-name" placeholder="اسم العميل">
+            <input type="number" id="returns-invoices-invoice-number" placeholder="رقم الفاتورة">
+            <h3>المنتجات المرتجعة</h3>
+            <table id="current-returns-invoices-table">
+                <thead>
+                    <tr>
+                        <th>اسم المنتج</th>
+                        <th>الكمية</th>
+                        <th>السعر</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="returns-invoices-body">
+                </tbody>
+            </table>
+            <div>
+                <h3>إضافة منتج للمرتجع</h3>
+                <input type="text" id="returns-invoices-product-name" placeholder="اسم المنتج">
+                <input type="number" id="returns-invoices-product-quantity" placeholder="الكمية">
+                <input type="number" id="returns-invoices-product-price" placeholder="السعر (اختياري)">
+                <button onclick="addReturnInvoicesItem()">إضافة المنتج</button>
+            </div>
+            <button onclick="saveReturnInvoices()">تسجيل المرتجع</button>
+        </div>
+
+        <div id="records" class="section" style="display:none;">
+            <h2>السجلات</h2>
+            <button onclick="showSubSection('sales_log')">سجل المبيعات</button>
+            <button onclick="showSubSection('invoices_log')">سجل الفواتير</button>
+            <button onclick="showSubSection('invoices_archive')">أرشيف الفواتير</button>
+            <button onclick="showSubSection('returns_sales_log')">سجل مرتجع المبيعات</button>
+            <button onclick="showSubSection('returns_invoices_log')">سجل مرتجع الفواتير</button>
+
+            <div id="sales_log" class="inner-section" style="display:none;">
+    <h3>سجل المبيعات</h3>
+    <div class="search-container">
+        <input type="text" id="search-sales-customer" placeholder="بحث باسم العميل">
+    </div>
+    <div id="sales-log-body">
+    </div>
+</div>
+            
+<div id="invoices_log" class="inner-section" style="display:none;">
+    <h3>سجل الفواتير</h3>
+    <div class="search-container">
+        <input type="text" id="search-invoices" placeholder="بحث برقم الفاتورة أو اسم العميل">
+    </div>
+    <div id="invoices-log-body">
+    </div>
+</div>
+            <div id="invoices_archive" class="inner-section" style="display:none;">
+    <h3>أرشيف الفواتير</h3>
+    <div class="search-container">
+        <input type="text" id="search-archived-invoices-customer" placeholder="بحث باسم العميل">
+    </div>
+    <div id="archived-invoices-body">
+    </div>
+</div>
+
+            <div id="returns_sales_log" class="inner-section" style="display:none;">
+    <h3>سجل مرتجع المبيعات</h3>
+    <div class="search-container">
+        <input type="text" id="search-returns-sales-customer" placeholder="بحث باسم العميل">
+    </div>
+    <div id="returns-sales-log-body">
+    </div>
+</div>
+
+            <div id="returns_invoices_log" class="inner-section" style="display:none;">
+    <h3>سجل مرتجع الفواتير</h3>
+    <div class="search-container">
+        <input type="text" id="search-returns-invoices-customer" placeholder="بحث باسم العميل">
+    </div>
+    <div id="returns-invoices-log-body">
+        </div>
+</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
